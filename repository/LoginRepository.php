@@ -88,7 +88,7 @@
     function fnLogin($email, $senha) {
         $con = getConnection();
 
-        $sql = "select * from login where email = :pEmail and senha = :pSenha";
+        $sql = "select id, email, created_at as createdAt from login where email = :pEmail and senha = :pSenha";
 
         $stmt = $con->prepare($sql);
         $stmt->bindParam(":pEmail", $email);

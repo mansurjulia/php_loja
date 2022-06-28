@@ -1,7 +1,10 @@
 <?php 
 
+    include('config.php');  
+    var_dump($_SESSION['login']);
+
     require_once('repository/ClienteRepository.php');
-    $notificacao = filter_input(INPUT_GET, 'notify', FILTER_SANITIZE_SPECIAL_CHARS);
+    $nome = filter_input(INPUT_GET, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 
 ?>
 
@@ -19,6 +22,7 @@
   </head>
 
   <body>
+    <?php include('navbar.php'); ?>
 
     <div class="col-6 offset-3">
 
@@ -37,7 +41,7 @@
             </thead>
 
             <tbody>
-                <?php foreach(fnListClientes() as $cliente): ?>
+                <?php foreach(fnLocalizaClientePorNome($nome) as $cliente): ?> 
 
                     <tr>
                         <td><?= $cliente->id ?></td>
@@ -51,23 +55,27 @@
 
                     </tr>
 
-                <?php endforeach; ?>
+                <?php endforeach; ?> 
+
             </tbody>
+    
             <?php if(isset($notificacao)) : ?>
+
             <tfoot>
                 <tr>
-                    <td colspan="7"><?= $notificacao ?></td>
+                    <td colspan="7"><?= $_COOKIE['notify'] ?></td>
                 </tr>
             </tfoot>
+
             <?php endif; ?>
+
         </table>
+         
+        
 
     </div>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
+    <?php include("rodape.php"); ?>
   </body>
 
 </html>
