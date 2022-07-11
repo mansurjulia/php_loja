@@ -1,0 +1,16 @@
+{
+    "name": "juliamansur/loja",
+    "description": "Sistema de cadastro de clientes para loja",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mansurjulia",
+            "email": "juliamansur_@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "phpmailer/phpmailer": "dev-master"
+    }
+}

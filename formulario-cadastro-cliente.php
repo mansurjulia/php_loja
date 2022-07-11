@@ -20,12 +20,28 @@
   <body>
   <?php include('navbar.php'); ?>
 
+
     <div class="col-6 offset-3">
 
         <fieldset>
 
             <legend>Cadastro de Clientes</legend>
-            <form action="registraCliente.php" method="post" class="form">
+            <form action="registraCliente.php" method="post" class="form" enctype="multipart/form-data">
+
+                <div class="card col-4 offset-4">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Foto do cliente" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Foto do cliente</text>
+                    </svg>
+                </div>                
+
+                <div class="mb-3 form-group">
+
+                    <label for="fotoId" class="form-label">Foto</label>
+                    <input type="file" name="foto" id="fotoId" class="form-control" placeholder="Informe o nome" required>
+                    <div id="helperFoto" class="form-text">Importe a foto</div>
+
+                </div>
 
                 <div class="mb-3 form-group">
 
@@ -70,6 +86,7 @@
     </div>
 
     <?php include("rodape.php"); ?>
+    <script src="js/base64.js"></script>
   </body>
 
 </html>

@@ -3,12 +3,16 @@ use loja;
 
 create or replace table cliente(
     id int primary key auto_increment,
+
+    /*foto text not null default "imagens\\avatar.png",*/
     nome varchar(250) not null,
     email varchar (250) not null unique,
     cpf varchar(14) not null unique,
     contato varchar(14) not null unique,
     created_at timestamp not null default CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+alter table cliente add column foto text not null default "imagens\\avatar.png" after id;
 
 create or replace table login(
     id int primary key auto_increment,

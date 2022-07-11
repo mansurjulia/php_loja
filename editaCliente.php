@@ -1,7 +1,8 @@
 <?php
 
-    require_once('./repository/ClienteRepository.php');
-    session_start(); //é melhor colocar a inicialização no inicio pois, ela fica antes de qualquer inicialização de código
+    require_once('repository/ClienteRepository.php');
+    require_once('util/base64.php');
+    session_start(); //é melhor colocar o start no inicio pois, ela fica antes de qualquer inicialização de código
 
     $id = filter_input(INPUT_POST, 'idCliente', FILTER_SANITIZE_NUMBER_INT);
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -9,8 +10,9 @@
     $cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_NUMBER_INT);
     $contato = filter_input(INPUT_POST, 'contato', FILTER_SANITIZE_NUMBER_INT);
 
-    
-    if(fnUpdateCliente($id, $nome, $email, $cpf, $contato)) {
+    $foto = converterBase64($_FILES['foto']);
+
+    if(fnUpdateCliente($id, $foto, $nome, $email, $cpf, $contato)) {
         $msg = "Sucesso ao cadastrar o cliente.";
     } else {
         $msg = "Falha ao cadastrar o cliente.";
@@ -20,4 +22,4 @@
     $page = "formulario-edita-cliente.php";
     setcookie('notify', $msg, (time() + 10), "/aula06/loja/{$page}", 'localhost');
     header("location: {$page}?id=$id");
-        exit;
+    exit;

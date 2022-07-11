@@ -2,24 +2,22 @@
 
     require_once('Connection.php');
 
-
     #CRUD
-    
-    function fnAddCliente($nome, $email, $cpf, $contato) {
+    function fnAddCliente($foto, $nome, $email, $cpf, $contato) {
 
         $con = getConnection();
 
         #SQL injection
-        $sql = "insert into cliente (nome, email, cpf, contato) values (:pNome, :pEmail, :pCpf, :pContato)";
+        $sql = "insert into cliente (foto, nome, email, cpf, contato) values (:pFoto, :pNome, :pEmail, :pCpf, :pContato)";
 
         $stmt = $con->prepare($sql);
+        $stmt->bindParam(":pFoto", $foto);
         $stmt->bindParam(":pNome", $nome);
         $stmt->bindParam(":pEmail", $email);
         $stmt->bindParam(":pCpf", $cpf);
         $stmt->bindParam(":pContato", $contato);
 
         return $stmt->execute();
-
     }
 
     function fnListClientes() {
@@ -33,10 +31,9 @@
         while($cliente = $result->fetch(PDO::FETCH_OBJ)) {
             array_push($lstClientes, $cliente);            
         }
-
         return $lstClientes;
-
     }
+
     function fnLocalizaClientePorNome($nome) {
         $con = getConnection();
 
@@ -59,23 +56,21 @@
         $stmt->bindParam(":pID", $id);
 
         if($stmt->execute()) {
-            $stmt->setFetchMode(PDO::FETCH_OBJ);
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-
         return null;
-
     }
 
-    function fnUpdateCliente($id, $nome, $email, $cpf, $contato) {
+    function fnUpdateCliente($id, $foto, $nome, $email, $cpf, $contato) {
 
         $con = getConnection();
 
         #SQL injection
-        $sql = "update cliente set nome = :pNome, email = :pEmail, cpf = :pCpf, contato = :pContato where id = :pID";
+        $sql = "update cliente set foto = :pFoto, nome = :pNome, email = :pEmail, cpf = :pCpf, contato = :pContato where id = :pID";
 
         $stmt = $con->prepare($sql);
         $stmt->bindParam(":pID", $id);
+        $stmt->bindParam(":pFoto", $foto);
         $stmt->bindParam(":pNome", $nome);
         $stmt->bindParam(":pEmail", $email);
         $stmt->bindParam(":pCpf", $cpf);
@@ -98,5 +93,4 @@
         return $stmt->execute();
 
         //Stmt->debugDumpParams(); #faz um dump da query
-
     }
